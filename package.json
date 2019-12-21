@@ -37,7 +37,6 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
     "parserOptions": {
       "parser": "babel-eslint"
     },
@@ -50,7 +49,10 @@
           "mocha": true
         }
       }
-    ]
+    ],
+    "rules": {
+      "vue/no-use-v-if-with-v-for": "off"
+    }
   },
   "browserslist": [
     "> 1%",
