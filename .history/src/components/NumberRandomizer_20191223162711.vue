@@ -4,18 +4,20 @@
     <v-btn color="green darken-1" text @click="tryGuess()">Guess!</v-btn>
     {{guess}}
     {{randomNumber}}
-    <div v-if="rightGuess">{{generalStatistics}}</div>
+
+    <div v-if="rightGuess">
+        {{statistics}}
+    </div>
   </v-container>
 </template>
 
 <script>
-import store from "@/store";
-import { mapGetters } from "vuex";
+import store from '@/store';
 
 export default {
   name: "NumberRandomizer",
-  computed: {
-    ...mapGetters({ generalStatistics: "getStatistics" })
+  created() {
+    this.randomNumber = this.randomize();
   },
   data: () => ({
     randomNumber: undefined,
@@ -29,11 +31,8 @@ export default {
       gamesPlayed: 0
     }
   }),
-  created() {
-    this.randomNumber = this.generateRandomNumber();
-  },
   methods: {
-    generateRandomNumber() {
+    randomize() {
       return Math.ceil(Math.random() * 1000);
     },
     tryGuess() {
@@ -47,10 +46,9 @@ export default {
 
       this.statistics.gamesPlayed++;
       this.statistics.wins++;
-      this.statistics.winsPer =
-        (this.statistics.wins / this.statistics.losses) * 100;
+      this.statistics.winsPer = (this.statistics.wins/this.statistics.losses) * 100;
       this.statistics.lossesPer = 100 - this.statistics.winsPer;
-      store.dispatch("saveStatistic", this.statistics);
+      store.dispatch("saveStatistic", this.statistics)
       this.rightGuess = true;
     },
     compareNumbers() {

@@ -6,7 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentPlayer: '',
-    statistics: []
+    statistics: [{
+      player: '',
+      wins: 0,
+      winsPer: 0,
+      losses: 0,
+      lossesPer: 0,
+      gamesPlayed: 0
+    }]
   },
   mutations: {
     REGISTER_PLAYER(state, player) {

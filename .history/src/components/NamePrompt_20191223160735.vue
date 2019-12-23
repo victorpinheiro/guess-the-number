@@ -18,8 +18,6 @@
 </template>
 
 <script>
-import store from "@/store";
-
 export default {
   name: "Main",
 
@@ -30,7 +28,7 @@ export default {
 
   methods: {
     startGame() {
-      store.dispatch("registerPlayer", this.playerName);
+      this.store.dispatch("registerPlayer");
       this.dialog = false;
     }
   }

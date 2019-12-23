@@ -4,7 +4,7 @@
     <v-btn color="green darken-1" text @click="tryGuess()">Guess!</v-btn>
     {{guess}}
     {{randomNumber}}
-    <div v-if="rightGuess">{{generalStatistics}}</div>
+    <div v-if="rightGuess">{{statistics}}</div>
   </v-container>
 </template>
 
@@ -15,7 +15,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "NumberRandomizer",
   computed: {
-    ...mapGetters({ generalStatistics: "getStatistics" })
+    ...mapGetters({ productList: "getProducts" })
   },
   data: () => ({
     randomNumber: undefined,
@@ -30,10 +30,10 @@ export default {
     }
   }),
   created() {
-    this.randomNumber = this.generateRandomNumber();
+    this.randomNumber = this.randomize();
   },
   methods: {
-    generateRandomNumber() {
+    randomize() {
       return Math.ceil(Math.random() * 1000);
     },
     tryGuess() {

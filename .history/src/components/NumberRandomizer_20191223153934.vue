@@ -1,39 +1,29 @@
 <template>
   <v-container>
     <v-text-field v-model="guess" />
-    <v-btn color="green darken-1" text @click="tryGuess()">Guess!</v-btn>
+    <v-btn @click="tryGuess()">Guess!</v-btn>
     {{guess}}
     {{randomNumber}}
-    <div v-if="rightGuess">{{generalStatistics}}</div>
   </v-container>
 </template>
 
 <script>
-import store from "@/store";
-import { mapGetters } from "vuex";
-
 export default {
   name: "NumberRandomizer",
-  computed: {
-    ...mapGetters({ generalStatistics: "getStatistics" })
+  created() {
+    this.randomNumber = this.randomize();
   },
   data: () => ({
     randomNumber: undefined,
     guess: 0,
-    rightGuess: false,
     statistics: {
       wins: 0,
-      winsPer: 0,
       losses: 0,
-      lossesPer: 0,
       gamesPlayed: 0
     }
   }),
-  created() {
-    this.randomNumber = this.generateRandomNumber();
-  },
   methods: {
-    generateRandomNumber() {
+    randomize() {
       return Math.ceil(Math.random() * 1000);
     },
     tryGuess() {
@@ -44,14 +34,14 @@ export default {
     showSuccess() {
       // eslint-disable-next-line no-console
       console.log("success");
-
       this.statistics.gamesPlayed++;
       this.statistics.wins++;
-      this.statistics.winsPer =
-        (this.statistics.wins / this.statistics.losses) * 100;
-      this.statistics.lossesPer = 100 - this.statistics.winsPer;
-      store.dispatch("saveStatistic", this.statistics);
-      this.rightGuess = true;
+      // eslint-disable-next-line no-console
+      console.log("statistics: ", this.statistics);
+      // eslint-disable-next-line no-console
+      console.log("wins%: ", this.statistics.wins * 100);
+      // eslint-disable-next-line no-console
+      console.log("losses%: ", this.statistics);
     },
     compareNumbers() {
       this.statistics.losses++;

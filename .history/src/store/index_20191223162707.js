@@ -6,7 +6,14 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     currentPlayer: '',
-    statistics: []
+    statistics: [{
+      player: '',
+      wins: 0,
+      winsPer: 0,
+      losses: 0,
+      lossesPer: 0,
+      gamesPlayed: 0
+    }]
   },
   mutations: {
     REGISTER_PLAYER(state, player) {
@@ -20,7 +27,7 @@ export default new Vuex.Store({
     registerPlayer({ commit }, player) {
       commit('REGISTER_PLAYER', player)
     },
-    saveStatistic({ commit }, statistics) {
+    saveStatistics({ commit }, statistics) {
       statistics.player = this.state.currentPlayer;
       commit('SAVE_STATISTIC', statistics)
     }
