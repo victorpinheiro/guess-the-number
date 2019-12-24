@@ -5,7 +5,7 @@
         <v-card-title class="headline">Enter your name</v-card-title>
 
         <v-card-text>
-          <v-text-field v-model="playerName" placeholder="name" title="input" />
+          <v-text-field v-model="playerName" placeholder="name" title="input" @keyup.enter="startGame()"/>
         </v-card-text>
 
         <v-card-actions>

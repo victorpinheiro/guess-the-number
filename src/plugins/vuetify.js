@@ -13,12 +13,15 @@ export default new Vuetify({
         themes: {
             dark: {
                 primary: colors.red.darken2,
-                accent: colors.green.darken1
+                accent: colors.green.darken1,
             },
-        }
+        },
+        options: {
+            customProperties: true,
+        },
     },
     lang: {
-        locales: {en, pt},
+        locales: { en, pt },
         current: 'pt',
     },
     icons: {
