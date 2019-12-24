@@ -22,11 +22,11 @@
         </v-row>
 
         <v-dialog v-model="dialog">
-            <div v-if="win" class="text-center">
+            <div v-if="win" class="text-center dialogBg">
                 <h1 style="color: green">Congratulations!</h1>
                 <h2 style="color: green">You won</h2>
             </div>
-            <div v-else-if="lose" class="text-center">
+            <div v-else-if="lose" class="text-center dialogBg">
                 <h1 style="color: red">You lose!</h1>
                 <h2 style="color: red">Secret number was {{this.randomNumber}}!</h2>
             </div>
@@ -39,39 +39,41 @@
 <script>
     import store from "@/store";
     import Statistics from "@/components/Statistics.vue";
-    import {mapGetters} from "vuex";
 
     export default {
         name: "NumberRandomizer",
         components: {
             Statistics
         },
-        computed: {
-            ...mapGetters({gameMode: "getGameMode"})
-        },
         data: () => ({
             randomNumber: undefined,
+            gameMode:'',
             guess: 0,
             isHigher: false,
             isLower: false,
             dialog: false,
             lose: false,
             win: false,
-            statistics: {
-                wins: 0,
-                winsPer: 0,
-                losses: 0,
-                lossesPer: 0,
-                gamesPlayed: 0,
-                tries: 0,
-                mode: ''
-            }
+            statistics: {}
         }),
         created() {
+            this.gameMode = store.state.gameMode;
             this.init();
         },
         methods: {
             init() {
+                this.statistics = {
+                    wins: 0,
+                    winsPer: 0,
+                    losses: 0,
+                    lossesPer: 0,
+                    gamesPlayed: 0,
+                    tries: 0,
+                    mode: ''
+                };
+                this.guess = 0;
+                this.win = false;
+                this.lose = false;
                 this.statistics.gamesPlayed++;
                 this.generateRandomNumber();
             },
@@ -111,12 +113,8 @@
                 }, 1500);
             },
             restartGame() {
-                this.guess = 0;
-                this.statistics = {};
-                this.win = false;
-                this.lose = false;
+                this.init();
                 this.dialog = false;
-                this.generateRandomNumber();
             }
         }
     }
@@ -142,6 +140,10 @@
         opacity: 1;
         color: green;
         text-shadow: 1px 1px 5px green;
+    }
+
+    .dialogBg {
+        background: #424242;
     }
 
     .row {

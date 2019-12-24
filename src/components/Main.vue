@@ -30,11 +30,11 @@
                     <v-row align="center">
                         <v-col class="text-center">
                             <div>
-                                <v-btn @click="startGame('classic')" color="primary">Classic</v-btn>
+                                <v-btn id="classicBtn" @click="startGame('classic')" color="primary">Classic</v-btn>
                                 <p>You have only one try to guess the number.</p>
                             </div>
                             <div style="margin: 20px 0">
-                                <v-btn @click="startGame('unlimited')" color="primary">Unlimited</v-btn>
+                                <v-btn id="unlimitedBtn" @click="startGame('unlimited')" color="primary">Unlimited</v-btn>
                                 <p>You have infinite tentatives. The game only finishes when you guess the number.</p>
                             </div>
                         </v-col>
@@ -47,6 +47,7 @@
 
 <script>
     import store from "@/store";
+    import router from "@/router"
     import Statistics from "./Statistics";
 
     export default {
@@ -64,7 +65,7 @@
         methods: {
             startGame(mode) {
                 store.dispatch("setGameMode", mode);
-                this.$router.push("/game");
+                router.push("/game");
             }
         }
     };

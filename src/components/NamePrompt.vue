@@ -5,12 +5,12 @@
         <v-card-title class="headline">Enter your name</v-card-title>
 
         <v-card-text>
-          <v-text-field v-model="playerName" placeholder="name" title="input" @keyup.enter="startGame()"/>
+          <v-text-field v-model="playerName" placeholder="name" title="input" @keyup.enter="setPlayerName()"/>
         </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="startGame()">Start</v-btn>
+          <v-spacer/>
+          <v-btn color="green darken-1" text @click="setPlayerName()">Start</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -29,7 +29,7 @@ export default {
   }),
 
   methods: {
-    startGame() {
+    setPlayerName() {
       store.dispatch("registerPlayer", this.playerName);
       this.dialog = false;
     }
